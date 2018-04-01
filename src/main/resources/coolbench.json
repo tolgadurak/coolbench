@@ -1,0 +1,5 @@
+{
+	"nTimes": 33554432,
+	"nThreads": 8,
+	"algorithm": "SHA-512"
+}

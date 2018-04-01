@@ -1,0 +1,25 @@
+{
+	"configuration": {
+		"name": "CoolbenchLoggerConfiguration",
+		"packages": "io.tolgadurak.coolbench",
+		"appenders": {
+			"Console": {
+				"name": "STDOUT",
+				"PatternLayout": {
+					"pattern": "%msg%n"
+				},
+				"ThresholdFilter": {
+					"level": "debug"
+				}
+			}
+		},
+		"loggers": {
+			"root": {
+				"level": "INFO",
+				"AppenderRef": {
+					"ref": "STDOUT"
+				}
+			}
+		}
+	}
+}
