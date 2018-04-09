@@ -2,6 +2,8 @@ package io.tolgadurak.coolbench.config;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +21,11 @@ public class CoolbenchConfig {
 
 	public static CoolbenchConfig getConfig() {
 		if (config == null) {
-			config = init();
+			try {
+				config = init();
+			} catch (UnsupportedEncodingException e) {
+				logger.error("Error while decoding config file name");
+			}
 		}
 		return config;
 	}
@@ -53,7 +59,7 @@ public class CoolbenchConfig {
 		return config.algorithm;
 	}
 
-	private static CoolbenchConfig init() {
+	private static CoolbenchConfig init() throws UnsupportedEncodingException {
 		ObjectMapper mapper = new ObjectMapper();
 		File configFile = getConfigFile();
 		CoolbenchConfig config = null;
@@ -66,9 +72,10 @@ public class CoolbenchConfig {
 		return config;
 	}
 
-	private static File getConfigFile() {
+	private static File getConfigFile() throws UnsupportedEncodingException {
 		ClassLoader classLoader = CoolbenchConfig.class.getClassLoader();
-		return new File(classLoader.getResource("coolbench.json").getFile());
+		String pathname = URLDecoder.decode(classLoader.getResource("coolbench.json").getFile(), "UTF-8");
+		return new File(pathname);
 	}
 
 }
