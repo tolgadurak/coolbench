@@ -1,7 +1,7 @@
 {
 	"configuration": {
 		"name": "CoolbenchLoggerConfiguration",
-		"packages": "io.tolgadurak.coolbench",
+		"packages": "io.tolgadurak.coolbench.cli",
 		"appenders": {
 			"Console": {
 				"name": "STDOUT",
