@@ -1,9 +1,8 @@
 package io.tolgadurak.coolbench.config;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -61,21 +60,20 @@ public class CoolbenchConfig {
 
 	private static CoolbenchConfig init() throws UnsupportedEncodingException {
 		ObjectMapper mapper = new ObjectMapper();
-		File configFile = getConfigFile();
+		InputStream configFileAsStream = getConfigFileAsStream();
 		CoolbenchConfig config = null;
 		try {
-			config = mapper.readValue(configFile, CoolbenchConfig.class);
+			config = mapper.readValue(configFileAsStream, CoolbenchConfig.class);
 		} catch (IOException e) {
-			logger.error("Error while deserializing JSON. File name: " + configFile.getName(), e);
+			logger.error("Error while deserializing JSON. File name: coolbench.json", e);
 			throw new RuntimeException();
 		}
 		return config;
 	}
 
-	private static File getConfigFile() throws UnsupportedEncodingException {
+	private static InputStream getConfigFileAsStream() throws UnsupportedEncodingException {
 		ClassLoader classLoader = CoolbenchConfig.class.getClassLoader();
-		String pathname = URLDecoder.decode(classLoader.getResource("coolbench.json").getFile(), "UTF-8");
-		return new File(pathname);
+		return classLoader.getResourceAsStream("coolbench.json");
 	}
 
 }
