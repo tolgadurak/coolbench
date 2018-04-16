@@ -43,7 +43,7 @@ public class CoolbenchCli {
 		} catch (JsonProcessingException e) {
 			logger.error("Error while serializing coolbench result to json", e);
 		}
-		logger.info(jsonResult);
+		System.out.println(jsonResult);
 	}
 
 	private void loadParameters() {
@@ -51,7 +51,7 @@ public class CoolbenchCli {
 			nTimes = config.getnTimes();
 		}
 		if (nThreads == null) {
-			nThreads = config.getnThreads();
+			nThreads = Runtime.getRuntime().availableProcessors();
 		}
 		if (StringUtils.isEmpty(algorithm)) {
 			algorithm = config.getAlgorithm();

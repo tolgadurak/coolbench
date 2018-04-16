@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CoolbenchConfig {
 	private static Logger logger = LogManager.getLogger(CoolbenchConfig.class);
 	private Integer nTimes;
-	private Integer nThreads;
 	private String algorithm;
 	private static CoolbenchConfig config;
 
@@ -31,10 +30,10 @@ public class CoolbenchConfig {
 
 	@JsonCreator
 	private CoolbenchConfig(@JsonProperty(required = true, value = "nTimes") Integer nTimes,
-			@JsonProperty(required = true, value = "nThreads") Integer nThreads,
+
 			@JsonProperty(required = true, value = "algorithm") String algorithm) {
 		this.nTimes = nTimes;
-		this.nThreads = nThreads;
+
 		this.algorithm = algorithm;
 	}
 
@@ -44,14 +43,6 @@ public class CoolbenchConfig {
 
 	public void setnTimes(Integer nTimes) {
 		this.nTimes = nTimes;
-	}
-
-	public Integer getnThreads() {
-		return nThreads;
-	}
-
-	public void setnThreads(Integer nThreads) {
-		this.nThreads = nThreads;
 	}
 
 	public String getAlgorithm() {
